@@ -1,0 +1,58 @@
+﻿<Window x:Class="HomeWork_13.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HomeWork_13"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
+   <!--Главный грид-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <!-- Меню -->
+        <Menu Grid.Row="0">
+            <MenuItem Header="Файл" Height="auto" Width="auto">
+                <MenuItem Header="Открыть"
+                          x:Name="OpenBaseMenu"
+                          Click="OpenBaseMenu_Click"></MenuItem>
+                <MenuItem Header="Сохранить"
+                          x:Name="SaveBaseMenu"
+                          Click="SaveBaseMenu_Click"></MenuItem>
+                <Separator/>
+                <MenuItem Header="Выход"
+                          x:Name="ExitMenu"
+                          Click="ExitMenu_Clikc"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <!--Внутренний грид с ориентацией по страницами -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="122"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <!--Управление страницами-->
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Выбор отдела" TextWrapping="Wrap"/>
+                <Button Click="OpenIndividualClientsPage" 
+                        Content="Обычные клиенты"/>
+                <Button Click="OpenBusinessClientsPage"
+                        Content="Бизнес клиенты"/>
+                <Button Click="OpenVipClientsPage"
+                        Content="VIP клиенты" />
+                <TextBlock Text="Переводы"/>
+                <Button Click="OpenAllAccountsPage" 
+                        Content="Открыть список"/>
+            </StackPanel>
+            <!--Фрейм с выводимыми страницами -->
+            <Frame x:Name="MainFrame" Grid.Column="1">
+                
+            </Frame>
+            
+        </Grid>
+        
+
+    </Grid>
+</Window>
