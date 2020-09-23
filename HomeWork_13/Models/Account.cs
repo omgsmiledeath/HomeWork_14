@@ -113,7 +113,7 @@ namespace HomeWork_13.Models
         {
             if((Balance - amount)>=0)
             {
-                target.LogAction?.Invoke($"Incoming transaction from {this.CartNumber} in {DateTime.Now.ToShortDateString()}");
+                target.LogAction?.Invoke($"Incoming transaction from {this.CartNumber} in {DateTime.Now}");
                 Balance -= amount;
                 target.Deposit(amount);
                 LogAction?.Invoke($"Withdrawn {amount} to {target} at {DateTime.Now} ");
