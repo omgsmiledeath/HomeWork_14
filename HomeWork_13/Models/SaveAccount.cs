@@ -17,6 +17,9 @@ namespace HomeWork_13.Models
             WithoutCapitalization
         }
 
+        private delegate void InvestLogDelegate(string s);
+        private InvestLogDelegate InvestLog;
+
         private DateTime startInvestmentDate;
         private DateTime completeInvestmentDate;
         private double capitalizeRate = 0.05;
@@ -59,6 +62,7 @@ namespace HomeWork_13.Models
             interestRate = bonusInterestRate;
             InterestBalance = 0;
             InvestitionProcess = false;
+            InvestLog = base.AddLog;
         }
 
         
@@ -84,7 +88,7 @@ namespace HomeWork_13.Models
                 CompleteInvestmentDate = DateTime.Now.AddMonths(Mounts);
                 InterestBalance += amount;
                 Balance -= amount;
-                LogTransaction.Add($"Investment {amount} start at {StartInvestmentDate} {(flag ? "with capitalization" :"without capitalization")}");
+                InvestLog?.Invoke($"Investment {amount} start at {StartInvestmentDate} {(flag ? "with capitalization" :"without capitalization")}");
                 InvestitionProcess = true;
                 return true;
             }
@@ -122,7 +126,7 @@ namespace HomeWork_13.Models
                 var months = Math.Ceiling(span.TotalDays / 30.4);
             if (months >= Mounts)
             {
-                LogTransaction.Add($"Try to complete Investment - result :less than a month, denied");
+                InvestLog?.Invoke($"Try to complete Investment - result :less than a month, denied");
                 return;
             }
             else if(months==0)
@@ -132,7 +136,7 @@ namespace HomeWork_13.Models
             }
                 InterestBalance = InterestBalance * Math.Pow((1 + InterestRate / 100 / Mounts), months);
                 Balance += InterestBalance;
-                LogTransaction.Add($"Investment complete for {months} months with {InterestBalance}");
+                InvestLog?.Invoke($"Investment complete for {months} months with {InterestBalance}");
                 InterestBalance = 0;
                 startInvestmentDate = DateTime.Now;
                 InvestitionProcess = false;
@@ -153,7 +157,7 @@ namespace HomeWork_13.Models
                 for (var i = 0; i < Mounts; i++)
                 {
                     monthInterest += InterestBalance * InterestRate / 100 / Mounts;
-                    LogTransaction.Add($"Get investment for {i} month = { InterestBalance * InterestRate / 100 / Mounts}");
+                    InvestLog?.Invoke($"Get investment for {i} month = { InterestBalance * InterestRate / 100 / Mounts}");
                 }
                 InterestBalance += monthInterest;
                 Balance += InterestBalance;
@@ -162,7 +166,7 @@ namespace HomeWork_13.Models
             }
             else
             {
-                LogTransaction.Add($"Try to complete Investment - result :less than a month, denied");
+                InvestLog?.Invoke($"Try to complete Investment - result :less than a month, denied");
             }
 
         }

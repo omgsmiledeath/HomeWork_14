@@ -53,9 +53,9 @@ namespace HomeWork_13.Models
         { get => balance;  // Автосвойсвто для баланса
           set 
             { 
-                
                 balance = value;
                 OnPropertyChanged("Balance");
+                
             } 
         } 
         public long ID
@@ -131,7 +131,7 @@ namespace HomeWork_13.Models
             LogAction?.Invoke($"Added {amount} at {DateTime.Now}");
         }
 
-        private void AddLog(string message)
+        protected void AddLog(string message)
         {
             logTransaction.Add(message);
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(String)));

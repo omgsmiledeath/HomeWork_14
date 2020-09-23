@@ -12,7 +12,8 @@ namespace HomeWork_13.Models
         private double limit;
         private double creditBalance;
         private double creditRate;
-
+        private delegate void CreditLogDelegate(string s);
+        private CreditLogDelegate CreditLog;
         public double Limit {
             get => limit;
              
@@ -30,7 +31,7 @@ namespace HomeWork_13.Models
             this.limit = limit;
             this.creditRate = creditRate;
             CreditBalance = 0;
-            
+            CreditLog = AddLog;
         }
 
         public bool GetCredit(double amount)
@@ -38,8 +39,8 @@ namespace HomeWork_13.Models
             if(CreditBalance+amount<=Limit)
             {
                 CreditBalance += amount+amount*creditRate/100;
-                Balance += amount;
-                LogTransaction.Add($"Get credit at {amount}");
+                Deposit(amount);
+                CreditLog?.Invoke($"Get credit at {amount} your debt {CreditBalance}");
                 return true;
             }
             return false;
@@ -51,7 +52,7 @@ namespace HomeWork_13.Models
             {
                 CreditBalance -= amount;
                 Balance -= amount;
-                LogTransaction.Add($"Close credit at {amount}");
+                CreditLog?.Invoke($"Close credit at {amount}");
                 if (CreditBalance <= 0)
                 {
                     Balance += Math.Abs(creditBalance);
