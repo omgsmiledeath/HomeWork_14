@@ -54,7 +54,7 @@ namespace HomeWork_13
             if (!String.IsNullOrWhiteSpace(CreditLimitBox.Text))
             {
                 double limit;
-                if (Double.TryParse(CreditLimitBox.Text, out limit))
+                if (Double.TryParse(CreditLimitBox.Text, out limit) && limit>0)
                     if (currentClient.CheckAndOpenAccount(Account.AccountTypes.Credit, 0, limit))
                     {
                         OpenCreditPanel.Visibility = Visibility.Visible;
@@ -133,7 +133,7 @@ namespace HomeWork_13
                 {
                     var currentAc = (Account)CartListGrid.SelectedItem;
                     double amount;
-                    if (double.TryParse(DepositBox.Text, out amount))
+                    if (double.TryParse(DepositBox.Text, out amount) && amount>0)
                         currentAc.Deposit(amount);
                     else
                         MessageBox.Show("Введенное значение не верное");
@@ -161,17 +161,22 @@ namespace HomeWork_13
                 if (currentAc != null)
                 {
                     double amount;
-                    int month;
-                    if (Double.TryParse(InvestmentBox.Text, out amount) && !String.IsNullOrWhiteSpace(InvestmentBox.Text) && !String.IsNullOrWhiteSpace(InvestmentMountBox.Text) && Int32.TryParse(InvestmentMountBox.Text, out month)) //проверка на ввод значения в TextBox 
-                        if (currentAc.StartInvestment(amount, month, flag))
-                        {
-                            InvestmentStartDateBox.Text = $"{(currentAc as SaveAccount).StartInvestmentDate}";
-                            InvestmentCompleteDateBox.Text = $"{(currentAc as SaveAccount).CompleteInvestmentDate}";
-                            MessageBox.Show("Вы сделали вклад!");
+                    byte month;
+                    if (Double.TryParse(InvestmentBox.Text, out amount) && 
+                        !String.IsNullOrWhiteSpace(InvestmentBox.Text) && 
+                        !String.IsNullOrWhiteSpace(InvestmentMountBox.Text) &&
+                        Byte.TryParse(InvestmentMountBox.Text, out month)) //проверка на ввод значения в TextBox 
+                        if(amount>0 && month>0)
+                            if (currentAc.StartInvestment(amount, month, flag))
+                            {
+                                InvestmentStartDateBox.Text = $"{(currentAc as SaveAccount).StartInvestmentDate}";
+                                InvestmentCompleteDateBox.Text = $"{(currentAc as SaveAccount).CompleteInvestmentDate}";
+                                MessageBox.Show("Вы сделали вклад!");
 
-                        }
-                        else
-                            MessageBox.Show("На счету не достаточно средств, либо у вас уже есть активный вклад");
+                            }
+                            else
+                                MessageBox.Show("На счету не достаточно средств, либо у вас уже есть активный вклад");
+                         else MessageBox.Show("Вводимые данные должны быть больше 0");
                     else
                         MessageBox.Show("Некоректный ввод суммы для вклада");
 
@@ -206,7 +211,7 @@ namespace HomeWork_13
             {
                 var currentAc = (CreditAccount)CartListGrid.SelectedItem;
                 double amount;
-                if (double.TryParse(AddCreditBox.Text, out amount))
+                if (double.TryParse(AddCreditBox.Text, out amount) && amount>0)
                     if (currentAc.GetCredit(amount))
                     {
                         CreditBalanceBlock.Text =$"{currentAc.CreditBalance}";
@@ -226,7 +231,7 @@ namespace HomeWork_13
             {
                 var currentAc = (CreditAccount)CartListGrid.SelectedItem;
                 double amount;
-                if (double.TryParse(CloseCreditBox.Text, out amount))
+                if (double.TryParse(CloseCreditBox.Text, out amount) && amount>0)
                 {
                     currentAc.CloseCredit(amount);
                     CreditBalanceBlock.Text = $"{currentAc.CreditBalance}";
@@ -274,7 +279,11 @@ namespace HomeWork_13
         private void OpenSaveMenu_Click(object sender, RoutedEventArgs e)
         {
             if (currentClient.CheckAndOpenAccount(Account.AccountTypes.Debit, 0, 0))
-                MessageBox.Show("Успех");
+            {
+               
+                OpenCreditPanel.Visibility = Visibility.Collapsed;
+                SaveAccPanel.Visibility = Visibility.Visible; 
+            }
             else
                 MessageBox.Show("Такой счет уже имеется");
         }
@@ -282,6 +291,7 @@ namespace HomeWork_13
         private void OpenCreditMenu_Click(object sender, RoutedEventArgs e)
         {
             OpenCreditPanel.Visibility = Visibility.Visible;
+            SaveAccPanel.Visibility = Visibility.Collapsed;
         }
 
         private void CartListGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)

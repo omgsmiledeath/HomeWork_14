@@ -24,7 +24,7 @@ namespace HomeWork_13.Models
         private DateTime completeInvestmentDate;
         private double capitalizeRate = 0.05;
         private TypeInvestment currentInvestment;
-        private int mounts;
+        private byte mounts;
         private double interestBalance;
         private double interestRate;
         bool InvestitionProcess;
@@ -44,7 +44,7 @@ namespace HomeWork_13.Models
             }
         }
 
-        public int Mounts { get => mounts; set
+        public byte Mounts { get => mounts; set
             {
                 mounts = value;
                 if (mounts > 6) this.interestRate += 12;
@@ -63,6 +63,7 @@ namespace HomeWork_13.Models
             InterestBalance = 0;
             InvestitionProcess = false;
             InvestLog = base.AddLog;
+            InvestLog?.Invoke($"Created Debit Cart");
         }
 
         
@@ -78,7 +79,7 @@ namespace HomeWork_13.Models
         /// <param name="month"></param>
         /// <param name="flag"></param>
         /// <returns></returns>
-        public bool StartInvestment(double amount,int month,bool flag)
+        public bool StartInvestment(double amount,byte month,bool flag)
         {
             Mounts = month;
             if((Balance-amount)>=0 && !InvestitionProcess)

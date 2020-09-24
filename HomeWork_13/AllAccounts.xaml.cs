@@ -82,7 +82,7 @@ namespace HomeWork_13
                 if (!String.IsNullOrWhiteSpace(TransactionAmountTextBox.Text))
                 {
                     double amount;
-                    if (Double.TryParse(TransactionAmountTextBox.Text, out amount))
+                    if (Double.TryParse(TransactionAmountTextBox.Text, out amount)&&amount>0)
                     {
                         if (outAcc.Withdraw(inAcc, amount))
                         {
