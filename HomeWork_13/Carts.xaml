@@ -5,12 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HomeWork_13"
         mc:Ignorable="d"
-        Title="Carts" MinHeight="340.542" MinWidth="634.333"
-        Height="404.374" Width="771.435">
-    <StackPanel>
-
-        <Menu Grid.Row="0">
-            <MenuItem Header="Открыть счет" Height="auto" Width="auto">
+        Title="Carts" MinHeight="410.542" MinWidth="913.333"
+        Height="411" Width="914">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="500"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0" Grid.ColumnSpan="2">
+            <MenuItem Header="Открыть счет" >
                 <MenuItem Header="Сберегательный" 
                           x:Name="OpenSaveMenu"
                           Click="OpenSaveMenu_Click"></MenuItem>
@@ -18,22 +25,12 @@
                           x:Name="OpenCreditMenu"
                           Click="OpenCreditMenu_Click"></MenuItem>
             </MenuItem>
-
-            
-
         </Menu>
-
-        <Grid>
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="500"/>
-                <ColumnDefinition Width="400"/>
-            </Grid.ColumnDefinitions>
-
-            <StackPanel Grid.Column="0">
+        <Grid Grid.Column="0" Grid.Row="1" >
+            <StackPanel Grid.Column="0" >
                 <DataGrid x:Name="CartListGrid" 
                      AutoGenerateColumns="True" SelectionChanged="CartListGrid_SelectionChanged" AutoGeneratingColumn="CartListGrid_AutoGeneratingColumn"/>
-                
+
                 <StackPanel Orientation="Horizontal" 
                             x:Name="OpenCreditPanel"
                             Visibility="Collapsed">
@@ -42,7 +39,7 @@
                     Click="OpenCredit_Click"
                     Width="200" Height="30"
                     Margin="10 0 10 10"/>
-                    <StackPanel Orientation="Vertical" Width="100">
+                    <StackPanel Orientation="Vertical" Width="00">
                         <TextBlock Text="Лимит по кредиту" FontSize="10"/>
                         <TextBox x:Name="CreditLimitBox" Width="70"/>
                     </StackPanel>
@@ -158,23 +155,21 @@
 
                 </Grid>
                 <!--#endregion-->
-
-            </StackPanel>
-
-            <StackPanel Grid.Column="1" Margin="0,0,0,10">
-                <ListBox x:Name="ListOfLogTransaction">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel>
-                                <TextBlock Text="{Binding}"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-
             </StackPanel>
         </Grid>
+        <StackPanel Grid.Column="1" Grid.Row="1" Margin="0,0,0,10">
+            <ListBox x:Name="ListOfLogTransaction">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
 
-    </StackPanel>
-    
+        </StackPanel>
+
+    </Grid>
+
 </Window>
