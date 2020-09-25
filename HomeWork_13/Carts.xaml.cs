@@ -136,8 +136,14 @@ namespace HomeWork_13
                 {
                     var currentAc = (Account)CartListGrid.SelectedItem;
                     double amount;
-                    if (double.TryParse(DepositBox.Text, out amount) && amount>0)
-                        currentAc.Deposit(amount);
+                    if (double.TryParse(DepositBox.Text, out amount))
+                        try {
+                            currentAc.Deposit(amount);
+                        }
+                        catch(Exception ex)
+                        {
+                            MessageBox.Show($"Вы ввели отрицательное значение {ex.Message}" );
+                        }
                     else
                         MessageBox.Show("Введенное значение не верное");
                 }
