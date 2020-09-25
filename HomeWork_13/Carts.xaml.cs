@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BankClassLibrary;
-
+using CustomExceptions;
 
 namespace HomeWork_13
 {
@@ -137,12 +137,16 @@ namespace HomeWork_13
                     var currentAc = (Account)CartListGrid.SelectedItem;
                     double amount;
                     if (double.TryParse(DepositBox.Text, out amount))
-                        try {
+                        try
+                        {
                             currentAc.Deposit(amount);
                         }
-                        catch(Exception ex)
+                        catch(AccountException ex) 
+                        when(ex.Type == AccountException.
+                        AccountExceptionTypes.
+                        NegativeValue)
                         {
-                            MessageBox.Show($"Вы ввели отрицательное значение {ex.Message}" );
+                            MessageBox.Show($"Ведите положительое число");
                         }
                     else
                         MessageBox.Show("Введенное значение не верное");
@@ -175,17 +179,21 @@ namespace HomeWork_13
                         !String.IsNullOrWhiteSpace(InvestmentBox.Text) && 
                         !String.IsNullOrWhiteSpace(InvestmentMountBox.Text) &&
                         Byte.TryParse(InvestmentMountBox.Text, out month)) //проверка на ввод значения в TextBox 
-                        if(amount>0 && month>0)
+                        try
+                        {
                             if (currentAc.StartInvestment(amount, month, flag))
                             {
                                 InvestmentStartDateBox.Text = $"{(currentAc as SaveAccount).StartInvestmentDate}";
                                 InvestmentCompleteDateBox.Text = $"{(currentAc as SaveAccount).CompleteInvestmentDate}";
                                 MessageBox.Show("Вы сделали вклад!");
-
                             }
                             else
                                 MessageBox.Show("На счету не достаточно средств, либо у вас уже есть активный вклад");
-                         else MessageBox.Show("Вводимые данные должны быть больше 0");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"{ex.Message}");
+                        }
                     else
                         MessageBox.Show("Некоректный ввод суммы для вклада");
 
