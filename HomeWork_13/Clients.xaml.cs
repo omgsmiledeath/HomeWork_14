@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BankClassLibrary;
 using HomeWork_13.ViewModels;
 namespace HomeWork_13
 {

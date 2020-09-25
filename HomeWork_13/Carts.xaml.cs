@@ -12,7 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using HomeWork_13.Models;
+using BankClassLibrary;
 
 
 namespace HomeWork_13
@@ -89,6 +89,9 @@ namespace HomeWork_13
                         
                         SaveAccPanel.Visibility = Visibility.Visible;
                         GridCreditAccPanel.Visibility = Visibility.Collapsed;
+
+                        OpenCreditPanel.Visibility = Visibility.Collapsed;
+                        SaveAccPanel.Visibility = Visibility.Visible;
                         if ((currAccount as SaveAccount).CompleteInvestmentDate == DateTime.MinValue)
                         {
                             InvestmentCompleteDateBox.Text = "Вклад еще не сделан";

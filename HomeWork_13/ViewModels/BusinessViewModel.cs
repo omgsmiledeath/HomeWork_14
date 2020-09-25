@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using HomeWork_13.Models;
+using BankClassLibrary;
 
 namespace HomeWork_13.ViewModels
 {

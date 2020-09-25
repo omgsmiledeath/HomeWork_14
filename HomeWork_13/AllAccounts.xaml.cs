@@ -13,7 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using HomeWork_13.Models;
+
+using BankClassLibrary;
 namespace HomeWork_13
 {
     /// <summary>

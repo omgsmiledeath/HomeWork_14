@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using HomeWork_13.Models;
 using Microsoft.Win32;
 using HomeWork_13.ViewModels;
+using BankClassLibrary;
 namespace HomeWork_13
 {
     /// <summary>
