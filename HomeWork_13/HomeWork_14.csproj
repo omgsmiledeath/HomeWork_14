@@ -160,10 +160,6 @@
       <Project>{f733a503-301a-4152-ae4e-a0c107400bba}</Project>
       <Name>CustomExceptions</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\o.petrov\source\repos\BankClassLibrary\BankClassLibrary\BankClassLibrary.csproj">
-      <Project>{f33f468d-1231-41db-97e0-2af4892c68a2}</Project>
-      <Name>BankClassLibrary</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
