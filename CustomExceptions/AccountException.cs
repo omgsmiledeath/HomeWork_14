@@ -10,7 +10,10 @@ namespace CustomExceptions
     {
         public enum AccountExceptionTypes
         {
-            NegativeValue
+            NegativeValue,
+            LimitOverflow,
+            NoActiveCredit,
+            NegativeBalance
         }
 
         public AccountExceptionTypes Type;

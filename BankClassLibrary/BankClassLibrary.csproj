@@ -51,5 +51,11 @@
     <Compile Include="SaveAccount.cs" />
     <Compile Include="VipClient.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CustomExceptions\CustomExceptions.csproj">
+      <Project>{f733a503-301a-4152-ae4e-a0c107400bba}</Project>
+      <Name>CustomExceptions</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

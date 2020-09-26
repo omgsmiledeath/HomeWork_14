@@ -153,8 +153,9 @@
                 <!--#endregion-->
             </StackPanel>
         </Grid>
-        <StackPanel Grid.Column="1" Grid.Row="1" Margin="0,0,0,10">
-            <ListBox x:Name="ListOfLogTransaction">
+        
+            <ListBox x:Name="ListOfLogTransaction" Grid.Row="1" Grid.Column="1"
+                      ScrollViewer.VerticalScrollBarVisibility="Visible">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
@@ -164,7 +165,7 @@
                 </ListBox.ItemTemplate>
             </ListBox>
 
-        </StackPanel>
+        
 
     </Grid>
 

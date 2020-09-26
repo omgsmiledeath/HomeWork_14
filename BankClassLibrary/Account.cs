@@ -6,7 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-
+using CustomExceptions;
 
 namespace BankClassLibrary
 {
@@ -32,7 +32,7 @@ namespace BankClassLibrary
 
         private double balance;//текущий баланс на счету
         protected long id; // ID счета
-        private string cartNumber;
+        private string cartNumber; //номер карты 
 
         public delegate void OnMessageAction(string Msg);
 
@@ -53,7 +53,8 @@ namespace BankClassLibrary
         public double Balance
         { get => balance;  // Автосвойсвто для баланса
           set 
-            { 
+            {
+                if (value < 0) throw new AccountException("Введено отрицательное значение", AccountException.AccountExceptionTypes.NegativeValue);
                 balance = value;
                 OnPropertyChanged("Balance");
                 

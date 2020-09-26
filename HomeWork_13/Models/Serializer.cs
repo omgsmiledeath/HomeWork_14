@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using BankClassLibrary;
 
+using System.Diagnostics;
+using System.Windows;
+
 namespace HomeWork_13.Models
 {
     public class Serializer
@@ -55,8 +58,10 @@ namespace HomeWork_13.Models
                 });
                 return true;
             }
-            catch
+            catch(Exception ex)
             {
+                
+                Debug.WriteLine($" {ex.Message} ");
                 return false;
             }
             

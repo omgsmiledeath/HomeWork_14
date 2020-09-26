@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BankClassLibrary;
 using CustomExceptions;
-
+using HomeWork_14.Models;
 namespace HomeWork_13
 {
     /// <summary>
@@ -51,10 +51,11 @@ namespace HomeWork_13
         /// <param name="e"></param>
         private void OpenCredit_Click(object sender, RoutedEventArgs e)
         {
-            if (!String.IsNullOrWhiteSpace(CreditLimitBox.Text))
+            double limit;
+            try
             {
-                double limit;
-                if (Double.TryParse(CreditLimitBox.Text, out limit) && limit>0)
+                if(CreditLimitBox.Text.FullCheckToDouble(out limit)&&limit>0)
+                {
                     if (currentClient.CheckAndOpenAccount(Account.AccountTypes.Credit, 0, limit))
                     {
                         OpenCreditPanel.Visibility = Visibility.Visible;
@@ -65,11 +66,12 @@ namespace HomeWork_13
                         OpenCreditPanel.Visibility = Visibility.Collapsed;
                         MessageBox.Show("Такой счет уже имеется");
                     }
-                else
-                    MessageBox.Show("Не подходящее значение");
+                }
             }
-            else
-                MessageBox.Show("Введите значение кредитного лимита");
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}");
+            } 
         }
 
 
@@ -132,27 +134,23 @@ namespace HomeWork_13
                 MessageBox.Show("Выберите счет");
             else
             {
-                if (!String.IsNullOrWhiteSpace(DepositBox.Text)) //Проверка на пустой TextBox
+                try
                 {
                     var currentAc = (Account)CartListGrid.SelectedItem;
                     double amount;
-                    if (double.TryParse(DepositBox.Text, out amount))
-                        try
-                        {
+                    if (DepositBox.Text.FullCheckToDouble(out amount))
+                    {
                             currentAc.Deposit(amount);
-                        }
-                        catch(AccountException ex) 
-                        when(ex.Type == AccountException.
-                        AccountExceptionTypes.
-                        NegativeValue)
-                        {
-                            MessageBox.Show($"Ведите положительое число");
-                        }
+                    }
                     else
                         MessageBox.Show("Введенное значение не верное");
                 }
-                else
-                    MessageBox.Show("Введенное значение не верное");
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"{ex.Message}");
+                }
+
+
             }
         }
         /// <summary>
@@ -175,27 +173,25 @@ namespace HomeWork_13
                 {
                     double amount;
                     byte month;
-                    if (Double.TryParse(InvestmentBox.Text, out amount) && 
-                        !String.IsNullOrWhiteSpace(InvestmentBox.Text) && 
-                        !String.IsNullOrWhiteSpace(InvestmentMountBox.Text) &&
-                        Byte.TryParse(InvestmentMountBox.Text, out month)) //проверка на ввод значения в TextBox 
-                        try
-                        {
-                            if (currentAc.StartInvestment(amount, month, flag))
-                            {
-                                InvestmentStartDateBox.Text = $"{(currentAc as SaveAccount).StartInvestmentDate}";
-                                InvestmentCompleteDateBox.Text = $"{(currentAc as SaveAccount).CompleteInvestmentDate}";
-                                MessageBox.Show("Вы сделали вклад!");
-                            }
-                            else
-                                MessageBox.Show("На счету не достаточно средств, либо у вас уже есть активный вклад");
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"{ex.Message}");
-                        }
-                    else
-                        MessageBox.Show("Некоректный ввод суммы для вклада");
+
+                    try
+                    {
+                        if (InvestmentBox.Text.FullCheckToDouble(out amount) && InvestmentMountBox.Text.FullCheckToByte(out month))
+                                if (currentAc.StartInvestment(amount, month, flag))
+                                {
+                                    InvestmentStartDateBox.Text = $"{(currentAc as SaveAccount).StartInvestmentDate}";
+                                    InvestmentCompleteDateBox.Text = $"{(currentAc as SaveAccount).CompleteInvestmentDate}";
+                                    MessageBox.Show("Вы сделали вклад!");
+                                }
+                                else
+                                    MessageBox.Show("На счету не достаточно средств, либо у вас уже есть активный вклад");
+                        else
+                            MessageBox.Show("Некоректный ввод значений для вклада");
+                    }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show($"{ex.Message}");
+                    }
 
 
                 }
@@ -224,22 +220,27 @@ namespace HomeWork_13
 
         private void AddCreditButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!String.IsNullOrWhiteSpace(AddCreditBox.Text)) //Проверка на пустой TextBox
-            {
+            
                 var currentAc = (CreditAccount)CartListGrid.SelectedItem;
                 double amount;
-                if (double.TryParse(AddCreditBox.Text, out amount) && amount>0)
+            try
+            {
+                if (AddCreditBox.Text.FullCheckToDouble(out amount))
+                {
                     if (currentAc.GetCredit(amount))
                     {
-                        CreditBalanceBlock.Text =$"{currentAc.CreditBalance}";
+                        CreditBalanceBlock.Text = $"{currentAc.CreditBalance}";
                     }
                     else
-                        MessageBox.Show("Что то пошло не так");
+                        MessageBox.Show("При данном значении превышается кредитный лимит");
+                }
                 else
                     MessageBox.Show("Введенное значение не верное");
             }
-            else
-                MessageBox.Show("Введенное значение не верное");
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}");
+            }
         }
 
         private void CloseCreditButton_Click(object sender, RoutedEventArgs e)
@@ -250,7 +251,16 @@ namespace HomeWork_13
                 double amount;
                 if (double.TryParse(CloseCreditBox.Text, out amount) && amount>0)
                 {
-                    currentAc.CloseCredit(amount);
+
+                    try
+                    {
+                        currentAc.CloseCredit(amount);
+                    }
+                    catch(AccountException ex)
+                    {
+                        MessageBox.Show($"{ex.Message}");
+                    }
+                        
                     CreditBalanceBlock.Text = $"{currentAc.CreditBalance}";
                 }
                 else

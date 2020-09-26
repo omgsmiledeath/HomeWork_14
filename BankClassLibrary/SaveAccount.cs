@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using CustomExceptions;
 
 namespace BankClassLibrary
 {
@@ -46,6 +47,7 @@ namespace BankClassLibrary
 
         public byte Mounts { get => mounts; set
             {
+                if (value < 0) throw new AccountException("Отрицательное значение", AccountException.AccountExceptionTypes.NegativeValue);
                 mounts = value;
                 if (mounts > 6) this.interestRate += 12;
                 else this.interestRate += 5;
@@ -81,6 +83,7 @@ namespace BankClassLibrary
         /// <returns></returns>
         public bool StartInvestment(double amount,byte month,bool flag)
         {
+            if (amount < 0) throw new AccountException("Отрицательное значение вклада", AccountException.AccountExceptionTypes.NegativeValue);
             Mounts = month;
             if((Balance-amount)>=0 && !InvestitionProcess)
             {
