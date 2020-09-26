@@ -156,6 +156,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BankClassLibrary\BankClassLibrary.csproj">
+      <Project>{f33f468d-1231-41db-97e0-2af4892c68a2}</Project>
+      <Name>BankClassLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CustomExceptions\CustomExceptions.csproj">
       <Project>{f733a503-301a-4152-ae4e-a0c107400bba}</Project>
       <Name>CustomExceptions</Name>
