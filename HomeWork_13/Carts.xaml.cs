@@ -81,9 +81,6 @@ namespace HomeWork_13
             {
                 if (CartListGrid.Items.Count != 0 && CartListGrid.SelectedItem as Account != null )
                 {
-                    
-                    
-                    
                     if (CartListGrid.SelectedItem is SaveAccount)
                     {
                         var currAccount = (SaveAccount)CartListGrid.SelectedItem;
@@ -305,16 +302,13 @@ namespace HomeWork_13
 
         private void OpenSaveMenu_Click(object sender, RoutedEventArgs e)
         {
-            if (currentClient.CheckAndOpenAccount(Account.AccountTypes.Debit, 0, 0))
+           
+            if(currentClient.CheckAndOpenAccount(Account.AccountTypes.Debit, 0, 0))
             {
-               
                 OpenCreditPanel.Visibility = Visibility.Collapsed;
-                SaveAccPanel.Visibility = Visibility.Visible; 
+                SaveAccPanel.Visibility = Visibility.Visible;
             }
-            else
-                MessageBox.Show("Такой счет уже имеется");
         }
-
         private void OpenCreditMenu_Click(object sender, RoutedEventArgs e)
         {
             OpenCreditPanel.Visibility = Visibility.Visible;
