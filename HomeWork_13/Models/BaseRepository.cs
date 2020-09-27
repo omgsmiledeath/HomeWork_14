@@ -19,7 +19,9 @@ namespace HomeWork_13.Models
 
         public BaseRepository()
         {
-
+            this.IndividualList = new Bank<Individual>();
+            this.BusinessList = new Bank<Business>();
+            this.VipClientsList = new Bank<VipClient>();
         }
 
         public BaseRepository(Bank<Individual> individuals,
@@ -31,5 +33,11 @@ namespace HomeWork_13.Models
             this.VipClientsList = vipClients;
         }
 
+        public BaseRepository(BaseRepository saveBase)
+        {
+            individualList = saveBase.IndividualList;
+            businessList = saveBase.BusinessList;
+            vipClientsList = saveBase.VipClientsList;
+        }
     }
 }

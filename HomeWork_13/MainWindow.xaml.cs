@@ -24,14 +24,12 @@ namespace HomeWork_13
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Bank<Business> businessBank;
-        private Bank<VipClient> vipBank;
-        private Bank<Individual> individualBank;
-
+        private MainViewModel mvm;
         
         public MainWindow()
         {
             InitializeComponent();
+            mvm = new MainViewModel();
         }
 
         /// <summary>
@@ -41,10 +39,6 @@ namespace HomeWork_13
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
-        businessBank = new Bank<Business>(); //Отдел банка с бизнес клиентами
-        vipBank = new Bank<VipClient>(); // Отдел банка с вип клиентами
-        individualBank = new Bank<Individual>(); // Отдел банка с обычными клиентами
         MainFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
         }
 
@@ -60,7 +54,10 @@ namespace HomeWork_13
             
             MainFrame.Content = new Clients()
             {
-                DataContext = new IndividualViewModel(individualBank.ClientList)
+                DataContext = new IndividualViewModel(mvm.
+                Repository.
+                IndividualList.
+                ClientList)
             };
         }
         /// <summary>
@@ -73,7 +70,10 @@ namespace HomeWork_13
 
             MainFrame.Content = new Clients()
             {
-                DataContext = new BusinessViewModel(businessBank.ClientList)
+                DataContext = new BusinessViewModel(mvm.
+                Repository.
+                BusinessList.
+                ClientList)
             };
         }
         /// <summary>
@@ -85,7 +85,10 @@ namespace HomeWork_13
         {
             MainFrame.Content = new Clients()
             {
-                DataContext = new VipViewModel(vipBank.ClientList)
+                DataContext = new VipViewModel(mvm.
+                Repository.
+                VipClientsList.
+                ClientList)
             };
         }
 
@@ -94,10 +97,10 @@ namespace HomeWork_13
             
             MainFrame.Content = new AllAccounts(
                 new ObservableCollection<Account>(
-                    individualBank.ClientList
+                    mvm.Repository.IndividualList.ClientList
                     .SelectMany(t => t.Carts)
-                    .Concat(businessBank.ClientList.SelectMany(t => t.Carts))
-                    .Concat(vipBank.ClientList.SelectMany(t => t.Carts))
+                    .Concat(mvm.Repository.VipClientsList.ClientList.SelectMany(t => t.Carts))
+                    .Concat(mvm.Repository.BusinessList.ClientList.SelectMany(t => t.Carts))
                     )
             );
         }
@@ -105,46 +108,21 @@ namespace HomeWork_13
         private void OpenBaseMenu_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
-
             Nullable<bool> result = ofd.ShowDialog();
             string path = ofd.FileName;
-
-            BaseRepository repo;
-
-            var ser = new Serializer();
             if (path != string.Empty)
             {
-                if (ser.Load(path))
-                {
-                    
-                    repo = ser.Repo;
-                    if (repo.IndividualList != null)
-                        individualBank = repo.IndividualList;
-                    else individualBank = new Bank<Individual>();
-                    if (repo.BusinessList != null)
-                        businessBank = repo.BusinessList;
-                    else businessBank = new Bank<Business>();
-                    if (repo.VipClientsList != null)
-                        vipBank = repo.VipClientsList;
-                    else
-                        vipBank = new Bank<VipClient>();
-
-                    MainFrame.Content = null;
-                }
-                else
-                    MessageBox.Show("Не подходящий файл");
+                mvm.Load(path);
+                MainFrame.Content = null;
             }
-           
         }
 
         private void SaveBaseMenu_Click(object sender, RoutedEventArgs e)
         {
-            Serializer ser = new Serializer(
-                new BaseRepository(individualBank, businessBank, vipBank));
             SaveFileDialog sfd = new SaveFileDialog();
             Nullable<bool> result = sfd.ShowDialog();
             string path = sfd.FileName;
-            if (path != string.Empty) ser.Save(path);
+            if (path != string.Empty) mvm.Save(path);
         }
 
         private void ExitMenu_Clikc(object sender, RoutedEventArgs e)

@@ -48,11 +48,7 @@
             </StackPanel>
             <!--Фрейм с выводимыми страницами -->
             <Frame x:Name="MainFrame" Grid.Column="1">
-                
             </Frame>
-            
         </Grid>
-        
-
     </Grid>
 </Window>

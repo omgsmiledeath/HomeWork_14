@@ -28,7 +28,7 @@ namespace BankClassLibrary
         private byte mounts;
         private double interestBalance;
         private double interestRate;
-        bool InvestitionProcess;
+        bool investitionProcess;
 
         public DateTime StartInvestmentDate { get => startInvestmentDate; set 
             { 
@@ -55,15 +55,17 @@ namespace BankClassLibrary
             }
         }
 
+        
         public double InterestBalance { get => interestBalance; set => interestBalance = value; }
         public double InterestRate { get => interestRate;  }
         public TypeInvestment CurrentInvestment { get => currentInvestment; set => currentInvestment = value; }
+        public bool InvestitionProcess { get => InvestitionProcess; }
 
         public SaveAccount(double amount,double bonusInterestRate=0) : base(amount,AccountTypes.Debit)
         {
             interestRate = bonusInterestRate;
             InterestBalance = 0;
-            InvestitionProcess = false;
+            investitionProcess = false;
             InvestLog = base.AddLog;
             InvestLog?.Invoke($"Created Debit Cart : {CartNumber}");
         }
@@ -93,7 +95,7 @@ namespace BankClassLibrary
                 InterestBalance += amount;
                 Balance -= amount;
                 InvestLog?.Invoke($"Investment {amount} start at {StartInvestmentDate} {(flag ? "with capitalization" :"without capitalization")}");
-                InvestitionProcess = true;
+                investitionProcess = true;
                 return true;
             }
             return false;
@@ -141,7 +143,7 @@ namespace BankClassLibrary
                 InvestLog?.Invoke($"Investment complete for {months} months with {InterestBalance}");
                 InterestBalance = 0;
                 startInvestmentDate = DateTime.Now;
-                InvestitionProcess = false;
+                investitionProcess = false;
         }
 
         /// <summary>
@@ -161,7 +163,7 @@ namespace BankClassLibrary
                 InterestBalance += monthInterest;
                 Balance += InterestBalance;
                 startInvestmentDate = DateTime.Now;
-                InvestitionProcess = false;
+                investitionProcess = false;
             }
             else
             {

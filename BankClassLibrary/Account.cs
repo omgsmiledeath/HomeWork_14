@@ -57,7 +57,6 @@ namespace BankClassLibrary
                 if (value < 0) throw new AccountException("Введено отрицательное значение", AccountException.AccountExceptionTypes.NegativeValue);
                 balance = value;
                 OnPropertyChanged("Balance");
-                
             } 
         } 
         public long ID

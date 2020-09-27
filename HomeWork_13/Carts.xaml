@@ -28,8 +28,12 @@
         </Menu>
         <Grid Grid.Column="0" Grid.Row="1" >
             <StackPanel Grid.Column="0" >
-                <DataGrid x:Name="CartListGrid" 
-                     AutoGenerateColumns="True" SelectionChanged="CartListGrid_SelectionChanged" AutoGeneratingColumn="CartListGrid_AutoGeneratingColumn"/>
+                <DataGrid x:Name="CartListGrid"  
+                     AutoGenerateColumns="True" 
+                          SelectionChanged="CartListGrid_SelectionChanged"
+                          AutoGeneratingColumn="CartListGrid_AutoGeneratingColumn">
+                    
+                </DataGrid>
 
                 <StackPanel Orientation="Horizontal" 
                             x:Name="OpenCreditPanel"
