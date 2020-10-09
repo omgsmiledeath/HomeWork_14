@@ -30,12 +30,23 @@ namespace HomeWork_13.Models
 
         public void Save(string path)
         {
-            var jset = new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.All };
-            string json = JsonConvert.SerializeObject(repo, Formatting.Indented, jset);
+            var jset = new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.All};
 
+            StringBuilder sb = new StringBuilder();
+            
+           // string json = JsonConvert.SerializeObject(repo, Formatting.Indented, jset);
+            
             using (StreamWriter sw = new StreamWriter(path))
             {
-                sw.WriteLine(json);
+                using (JsonTextWriter jtw = new JsonTextWriter(sw))
+                {
+                    JsonSerializer js = new JsonSerializer() { TypeNameHandling = TypeNameHandling.All };
+                    
+                    js.Serialize(jtw, repo, typeof(BaseRepository));
+                    jtw.Flush();
+                }
+
+                
             }
 
             File.Copy(path, "base.json", true);
