@@ -47,6 +47,9 @@ namespace HomeWork_13.ViewModels
 
         }
 
-
+        public void CreateManyCLientsRepo()
+        {
+            repository.FiilRepo();
+        }
     }
 }

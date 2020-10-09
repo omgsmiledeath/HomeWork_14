@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace HomeWork_13.Models
 {
     public class BaseRepository
     {
+        static public object loker = new object();
         private Bank<Individual> individualList;
         private Bank<Business> businessList;
         private Bank<VipClient> vipClientsList;
@@ -38,6 +40,54 @@ namespace HomeWork_13.Models
             individualList = saveBase.IndividualList;
             businessList = saveBase.BusinessList;
             vipClientsList = saveBase.VipClientsList;
+        }
+
+        public void FiilRepo()
+        {
+            try
+            {
+                //var individTask = new Task(fillIndividual); individTask.Start();
+                //var vipTask = new Task(fillVip); vipTask.Start();
+                //var businessTask = new Task(fillBusiness); businessTask.Start();
+                Parallel.Invoke(fillIndividual, fillBusiness, fillVip);
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine($"{ex.Message}");
+            }
+           
+        }
+
+        private void fillIndividual()
+        {
+            lock (loker)
+            {
+                for (int i = 0; i < 5_000_000; i++)
+                {
+                    individualList.AddClient(new Individual($"IndividualClient - {i}", "Evergreen 123", "8-800-555-35-35"));
+                }
+            }
+        }
+        private void fillVip()
+        {
+            lock (loker)
+            {
+                for (int i = 0; i < 5_000_000; i++)
+                {
+                    vipClientsList.AddClient(new VipClient($"VipClient - {i}", "Evergreen 123", "8-800-555-35-35"));
+                }
+            }
+        }
+
+        private void fillBusiness()
+        {
+            lock (loker)
+            {
+                for (int i = 0; i < 5_000_000; i++)
+                {
+                    businessList.AddClient(new Business($"BusinessClient - {i}", "Evergreen 123", "8-800-555-35-35", "Homer", "WTF"));
+                }
+            }
         }
     }
 }
