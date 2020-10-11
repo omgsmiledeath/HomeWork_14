@@ -40,16 +40,13 @@ namespace HomeWork_13.Models
             {
                 using (JsonTextWriter jtw = new JsonTextWriter(sw))
                 {
-                    JsonSerializer js = new JsonSerializer() { TypeNameHandling = TypeNameHandling.All };
                     
+                    JsonSerializer js = new JsonSerializer() { TypeNameHandling = TypeNameHandling.All };
                     js.Serialize(jtw, repo, typeof(BaseRepository));
-                    jtw.Flush();
+                    
                 }
-
-                
             }
-
-            File.Copy(path, "base.json", true);
+            //File.Copy(path, "base.json", true);
         }
 
         public bool Load(string path)
@@ -71,7 +68,6 @@ namespace HomeWork_13.Models
             }
             catch(Exception ex)
             {
-                
                 Debug.WriteLine($" {ex.Message} ");
                 return false;
             }

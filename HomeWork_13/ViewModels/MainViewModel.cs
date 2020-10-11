@@ -43,13 +43,21 @@ namespace HomeWork_13.ViewModels
         {
             Serializer ser = new Serializer(
                new BaseRepository(repository));
-            ser.Save(path);
+            
+            Task.Factory.StartNew(()=>ser.Save(path));
 
         }
 
         public void CreateManyCLientsRepo()
         {
-            repository.FiilRepo();
+            try
+            {
+                repository.FiilRepo();
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка потоков");
+            }
         }
     }
 }
