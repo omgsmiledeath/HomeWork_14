@@ -46,13 +46,13 @@ namespace HomeWork_13.Models
         {
             try
             {
-                //var individTask = new Task(fillIndividual); individTask.Start();
-                //var vipTask = new Task(fillVip); vipTask.Start();
-                //var businessTask = new Task(fillBusiness); businessTask.Start();
-                //Parallel.Invoke(fillIndividual, fillBusiness, fillVip);
-                fillIndividual();
-                fillBusiness();
-                fillVip();
+                var individTask = new Task(fillIndividual); individTask.Start();
+                var vipTask = new Task(fillVip); vipTask.Start();
+                var businessTask = new Task(fillBusiness); businessTask.Start();
+                Parallel.Invoke(fillIndividual, fillBusiness, fillVip);
+                //fillIndividual();
+                //fillBusiness();
+                //fillVip();
             }
             catch(Exception ex)
             {

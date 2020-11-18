@@ -52,7 +52,7 @@ namespace HomeWork_13.ViewModels
         {
             try
             {
-                repository.FiilRepo();
+                Task.Factory.StartNew(()=>repository.FiilRepo());
             }
             catch
             {
