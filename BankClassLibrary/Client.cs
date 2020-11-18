@@ -12,6 +12,10 @@ namespace BankClassLibrary
     public abstract class Client :INotifyPropertyChanged ,IEquatable<Client>
 
     {
+        public static void NewId()
+        {
+            id_count = 0;
+        }
         static long id_count;
 
         static Client()

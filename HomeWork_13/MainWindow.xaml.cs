@@ -107,20 +107,14 @@ namespace HomeWork_13
 
         private void OpenBaseMenu_Click(object sender, RoutedEventArgs e)
         {
-            //OpenFileDialog ofd = new OpenFileDialog();
-            //Nullable<bool> result = ofd.ShowDialog();
-            //string path = ofd.FileName;
-            //if (path != string.Empty)
-            //{
-            //    mvm.Load(path);
-            //    MainFrame.Content = null;
-            //}
-             mvm.CreateManyCLientsRepo();
-            
-            
-                
-            
-            
+            OpenFileDialog ofd = new OpenFileDialog();
+            Nullable<bool> result = ofd.ShowDialog();
+            string path = ofd.FileName;
+            if (path != string.Empty)
+            {
+                mvm.Load(path);
+                MainFrame.Content = null;
+            }
         }
 
         private void SaveBaseMenu_Click(object sender, RoutedEventArgs e)
@@ -136,6 +130,13 @@ namespace HomeWork_13
             this.Close();
         }
 
-    
+        private void GenerateNewBase_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Content = null;
+            this.Dispatcher.BeginInvoke
+                (System.Windows.Threading.DispatcherPriority.Background,
+                new Action(()=>mvm.CreateManyCLientsRepo())
+                );
+        }
     }
 }

@@ -21,6 +21,9 @@
                 <MenuItem Header="Сохранить"
                           x:Name="SaveBaseMenu"
                           Click="SaveBaseMenu_Click"></MenuItem>
+                <MenuItem Header="Сгенерировать новую базу"
+                          x:Name="GenerateNewBase"
+                          Click="GenerateNewBase_Click"></MenuItem>
                 <Separator/>
                 <MenuItem Header="Выход"
                           x:Name="ExitMenu"

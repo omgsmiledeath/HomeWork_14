@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using BankClassLibrary;
 namespace HomeWork_13.Models
@@ -15,6 +16,7 @@ namespace HomeWork_13.Models
         private Bank<Business> businessList;
         private Bank<VipClient> vipClientsList;
 
+        
         public Bank<Business> BusinessList { get => businessList; set => businessList = value; }
         public Bank<Individual> IndividualList { get => individualList; set => individualList = value; }
         public Bank<VipClient> VipClientsList { get => vipClientsList; set => vipClientsList = value; }
@@ -46,13 +48,15 @@ namespace HomeWork_13.Models
         {
             try
             {
-                //var individTask = new Task(fillIndividual); individTask.Start();
+                //var individTask = Task.Factory.StartNew(()=>fillIndividual()) ; individTask.Start();
                 //var vipTask = new Task(fillVip); vipTask.Start();
                 //var businessTask = new Task(fillBusiness); businessTask.Start();
-                Parallel.Invoke(fillIndividual, fillBusiness, fillVip);
-                //fillIndividual();
-                //fillBusiness();
-                //fillVip();
+                Client.NewId();
+                
+                //Parallel.Invoke(fillIndividual, fillBusiness, fillVip);
+                fillIndividual();
+                fillBusiness();
+                fillVip();
             }
             catch(Exception ex)
             {
@@ -67,6 +71,7 @@ namespace HomeWork_13.Models
             {
                 for (int i = 0; i < 2_000_000; i++)
                 {
+                    
                     individualList.AddClient(new Individual($"IndividualClient - {i}", "Evergreen 123", "8-800-555-35-35"));
                 }
             }

@@ -51,10 +51,8 @@ namespace HomeWork_13.ViewModels
         public void CreateManyCLientsRepo()
         {
 
-            var fillTask = new Task(() => repository.FiilRepo());
-            fillTask.Start();
-            while (!fillTask.IsCompleted)
-                MessageBox.Show("Идет генерация");
+             Task.Factory.StartNew(()=>repository.FiilRepo());
+             MessageBox.Show("Идет генерация");
         }
     }
 }
