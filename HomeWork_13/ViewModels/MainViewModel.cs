@@ -50,14 +50,11 @@ namespace HomeWork_13.ViewModels
 
         public void CreateManyCLientsRepo()
         {
-            try
-            {
-                Task.Factory.StartNew(()=>repository.FiilRepo());
-            }
-            catch
-            {
-                MessageBox.Show("Ошибка потоков");
-            }
+
+            var fillTask = new Task(() => repository.FiilRepo());
+            fillTask.Start();
+            while (!fillTask.IsCompleted)
+                MessageBox.Show("Идет генерация");
         }
     }
 }

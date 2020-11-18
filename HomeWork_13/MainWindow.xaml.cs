@@ -115,7 +115,11 @@ namespace HomeWork_13
             //    mvm.Load(path);
             //    MainFrame.Content = null;
             //}
-            mvm.CreateManyCLientsRepo();
+             mvm.CreateManyCLientsRepo();
+            
+            
+                
+            
             
         }
 

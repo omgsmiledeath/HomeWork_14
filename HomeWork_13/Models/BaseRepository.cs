@@ -46,9 +46,9 @@ namespace HomeWork_13.Models
         {
             try
             {
-                var individTask = new Task(fillIndividual); individTask.Start();
-                var vipTask = new Task(fillVip); vipTask.Start();
-                var businessTask = new Task(fillBusiness); businessTask.Start();
+                //var individTask = new Task(fillIndividual); individTask.Start();
+                //var vipTask = new Task(fillVip); vipTask.Start();
+                //var businessTask = new Task(fillBusiness); businessTask.Start();
                 Parallel.Invoke(fillIndividual, fillBusiness, fillVip);
                 //fillIndividual();
                 //fillBusiness();
@@ -65,7 +65,7 @@ namespace HomeWork_13.Models
         {
             lock (loker)
             {
-                for (int i = 0; i < 5_000_00; i++)
+                for (int i = 0; i < 2_000_000; i++)
                 {
                     individualList.AddClient(new Individual($"IndividualClient - {i}", "Evergreen 123", "8-800-555-35-35"));
                 }
@@ -75,7 +75,7 @@ namespace HomeWork_13.Models
         {
             lock (loker)
             {
-                for (int i = 0; i < 5_000_00; i++)
+                for (int i = 0; i < 2_000_000; i++)
                 {
                     vipClientsList.AddClient(new VipClient($"VipClient - {i}", "Evergreen 123", "8-800-555-35-35"));
                 }
@@ -86,7 +86,7 @@ namespace HomeWork_13.Models
         {
             lock (loker)
             {
-                for (int i = 0; i < 5_000_00; i++)
+                for (int i = 0; i < 2_000_000; i++)
                 {
                     businessList.AddClient(new Business($"BusinessClient - {i}", "Evergreen 123", "8-800-555-35-35", "Homer", "WTF"));
                 }

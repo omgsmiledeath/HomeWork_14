@@ -36,7 +36,7 @@
             <!--Управление страницами-->
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="Выбор отдела" TextWrapping="Wrap"/>
-                <Button Click="OpenIndividualClientsPage" 
+                <Button x:Name="OpenIndivButton" Click="OpenIndividualClientsPage" 
                         Content="Обычные клиенты"/>
                 <Button Click="OpenBusinessClientsPage"
                         Content="Бизнес клиенты"/>
