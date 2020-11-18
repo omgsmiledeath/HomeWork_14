@@ -112,6 +112,7 @@ namespace HomeWork_13
             string path = ofd.FileName;
             if (path != string.Empty)
             {
+                
                 mvm.Load(path);
                 MainFrame.Content = null;
             }

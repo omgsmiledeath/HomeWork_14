@@ -25,6 +25,7 @@ namespace HomeWork_13.ViewModels
         public void Load(string path)
         {
             var ser = new Serializer();
+            Client.NewId();
                 if (ser.Load(path))
                 {
                     repository = ser.Repo;
