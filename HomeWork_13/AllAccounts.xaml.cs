@@ -78,7 +78,7 @@ namespace HomeWork_13
 
         private void TransactionButton_Click(object sender, RoutedEventArgs e)
         {
-            if (((inAcc != null) && (outAcc != null)))
+            if ((inAcc != null) && (outAcc != null))
             {
                 if (!String.IsNullOrWhiteSpace(TransactionAmountTextBox.Text))
                 {
