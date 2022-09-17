@@ -34,7 +34,7 @@ namespace HomeWork_13.Models
 
             StringBuilder sb = new StringBuilder();
 
-            // string json = JsonConvert.SerializeObject(repo, Formatting.Indented, jset);
+           // string json = JsonConvert.SerializeObject(repo, Formatting.Indented, jset);
 
             using (StreamWriter sw = new StreamWriter(path, false))
             {
@@ -46,7 +46,7 @@ namespace HomeWork_13.Models
 
                 }
             }
-            //File.Copy(path, "base.json", true);
+           // File.Copy(path, "base.json", true);
         }
 
         public bool Load(string path)

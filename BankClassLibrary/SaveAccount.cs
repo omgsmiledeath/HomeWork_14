@@ -59,7 +59,7 @@ namespace BankClassLibrary
         public double InterestBalance { get => interestBalance; set => interestBalance = value; }
         public double InterestRate { get => interestRate;  }
         public TypeInvestment CurrentInvestment { get => currentInvestment; set => currentInvestment = value; }
-        public bool InvestitionProcess { get => InvestitionProcess; }
+        public bool InvestitionProcess { get => investitionProcess; }
 
         public SaveAccount(double amount,double bonusInterestRate=0) : base(amount,AccountTypes.Debit)
         {
